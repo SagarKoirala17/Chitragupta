@@ -26,5 +26,9 @@
 Cypress.Commands.add('login', (email, password) => {
     cy.visit('/')
     
+    
+    cy.get('#email').type(email).should('have.value',email)
+    cy.get('#password').type(password).should('have.value',password)
+    cy.get(':nth-child(4) > .flex').click()
 
 })
