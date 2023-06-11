@@ -54,7 +54,7 @@ describe('Leave Table Components',()=>{
             
 
     })
-    it.only('Cancel the request',()=>{
+    it('Cancel the request',()=>{
       let arrays=[]
       cy.get('.h-full').should('be.visible').click()
       cy.get("#headlessui-dialog-panel-3 > nav > div > ol:nth-child(2) > li > div > div > button > span.ml-4.font-medium").click()
@@ -73,9 +73,25 @@ describe('Leave Table Components',()=>{
         cy.get('.bg-amber-500').click()
         cy.get('.min-w-full > .px-4 > :nth-child(1) > :nth-child(1)').click()
         cy.get('.bg-teal-600').click()
-        
-        
-      })  
 
-    })
-  })
+        
+        })  
+})
+it.only('All leaves toggle button functionality when toggle button is off', () => {
+  let date = new Date();
+  let date_arrays = [];
+
+  cy.get('.h-full').should('be.visible').click();
+  cy.get("#headlessui-dialog-panel-3 > nav > div > ol:nth-child(2) > li > div > div > button > span.ml-4.font-medium").click();
+  
+  cy.get('.bg-white > :nth-child(n) > :nth-child(4)').each(($index) => {
+    let date_value = $index.text().trim();
+    date_arrays.push(new Date(date_value));
+  }).then(() => {
+    console.log(date_arrays);
+    for (let i = 0; i < date_arrays.length; i++) {
+      expect(date_arrays[i]).to.be.gte(date);
+    }
+  });
+});
+})
