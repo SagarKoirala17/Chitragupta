@@ -15,7 +15,7 @@ describe('Leave Table Components',()=>{
             cy.get('.flex > .block').should('have.text','All Leaves')
             cy.AssertLeaveTable()
     })
-    it.only('Create the new leave via employee list',()=>{
+    it('Create the new leave via employee list',()=>{
      // Get today's date
         const today = new Date();
 
@@ -52,6 +52,30 @@ describe('Leave Table Components',()=>{
         
         
             
+
+    })
+    it.only('Cancel the request',()=>{
+      let arrays=[]
+      cy.get('.h-full').should('be.visible').click()
+      cy.get("#headlessui-dialog-panel-3 > nav > div > ol:nth-child(2) > li > div > div > button > span.ml-4.font-medium").click()
+      cy.get('.min-w-full > .bg-white > :nth-child(n) > :nth-child(1)').each((index)=>{
+        let array=index.text().trim()
+        arrays.push(array)
+
+      }).then(()=>{
+        console.log(arrays)
+        let random_cancel = Math.floor(Math.random() * (arrays.length - 1)) + 1;
+        console.log(random_cancel)
+        cy.get(`.min-w-full > .bg-white > :nth-child(${random_cancel}) > :nth-child(1)`).click()
+        cy.get('form > :nth-child(2) > .bg-amber-500').click()
+        cy.get('#reason').type('I have had enough of holidays')
+        cy.get('.my-3 > .inline-flex').click()
+        cy.get('.bg-amber-500').click()
+        cy.get('.min-w-full > .px-4 > :nth-child(1) > :nth-child(1)').click()
+        cy.get('.bg-teal-600').click()
+        
+        
+      })  
 
     })
   })
