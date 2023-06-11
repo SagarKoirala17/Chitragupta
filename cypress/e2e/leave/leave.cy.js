@@ -1,5 +1,8 @@
 import { credentials } from "../credentials"
 import '../leave/leave_table'
+import 'cypress-file-upload';
+
+
 describe('Leave Table Components',()=>{
     
         beforeEach(() => {
@@ -77,7 +80,7 @@ describe('Leave Table Components',()=>{
         
         })  
 })
-it.only('All leaves toggle button functionality when toggle button is off', () => {
+it('All leaves toggle button functionality when toggle button is off', () => {
   let date = new Date();
   let date_arrays = [];
 
@@ -94,4 +97,13 @@ it.only('All leaves toggle button functionality when toggle button is off', () =
     }
   });
 });
+it.only('Negative Assertion for Bulk Upload',()=>{
+  let p='3.jpg'
+  cy.get('.h-full').should('be.visible').click();
+  cy.get("#headlessui-dialog-panel-3 > nav > div > ol:nth-child(2) > li > div > div > button > span.ml-4.font-medium").click();
+  cy.get("#__next > div > div.flex.flex-col.flex-1.lg\\:pl-64 > main > div.md\\:flex.items-center.justify-between.mx-3.mb-3.md\\:space-x-6.space-x-0.space-y-2.md\\:space-y-0.lg\\:mb-7 > div.flex.items-center.md\\:space-y-0.space-x-4 > button.inline-flex.items-center.justify-center.rounded-md.border.border-transparent.px-2.lg\\:px-2.py-2.text-sm.font-medium.text-white.shadow-sm.focus\\:outline-none.sm\\:w-auto.bg-primary.hover\\:bg-primary-dark").click()
+  cy.get('#leave-file-upload').attachFile(p)
+  cy.get('.p-4 > .flex > .bg-primary').click()
+  cy.get('.flex-col > .w-full > .p-4').should('be.visible')
+})
 })
