@@ -22,18 +22,18 @@ describe('Leave Table Components',()=>{
      // Get today's date
         const today = new Date();
 
-// Generate a random number of days between 1 and 30
+      // Generate a random number of days between 1 and 30
         const randomNumberOfDays = Math.floor(Math.random() * 30) + 1;
 
-// Add the random number of days to today's date
+      // Add the random number of days to today's date
         today.setDate(today.getDate() + randomNumberOfDays);
 
-// Get the month, day, and year components from the generated date
+      // Get the month, day, and year components from the generated date
         const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
         const day = String(today.getDate()).padStart(2, '0');
         const year = today.getFullYear();
 
-// Construct the random date string in the format YYYY-MM-DD
+      // Construct the random date string in the format YYYY-MM-DD
         const randomDate = `${year}-${month}-${day}`;
 
         console.log(randomDate);
@@ -97,7 +97,7 @@ it('All leaves toggle button functionality when toggle button is off', () => {
     }
   });
 });
-it.only('Negative Assertion for Bulk Upload',()=>{
+it('Negative Assertion for Bulk Upload',()=>{
   let p='3.jpg'
   cy.get('.h-full').should('be.visible').click();
   cy.get("#headlessui-dialog-panel-3 > nav > div > ol:nth-child(2) > li > div > div > button > span.ml-4.font-medium").click();
@@ -106,4 +106,65 @@ it.only('Negative Assertion for Bulk Upload',()=>{
   cy.get('.p-4 > .flex > .bg-primary').click()
   cy.get('.flex-col > .w-full > .p-4').should('be.visible')
 })
+it.only('Approve the Pending Request', () => {
+  let paid_leave,sick_leave, unpaid_leave, sick, paid, unpaid, leave_type
+  let arrays=[]
+  cy.get('.h-full').should('be.visible').click();
+  cy.get("#headlessui-dialog-panel-3 > nav > div > ol:nth-child(2) > li > div > div > button > span.ml-4.font-medium").click();
+
+  // Wait for the dropdown options to be loaded
+
+  // Select the option with value 'pending' from the dropdown
+  cy.get('#status').select('Pending')
+  cy.wait(5000)
+  cy.get(':nth-child(n) > :nth-child(8) > .text-yellow-500').each(($index)=>{
+    let array=$index.text().trim()
+    arrays.push(array)
+
+  }).then(()=>{
+    console.log(arrays)
+    let random_cancel = Math.floor(Math.random() * (arrays.length - 1)) + 1;
+    cy.get(`.min-w-full > .bg-white > :nth-child(${random_cancel}) > :nth-child(1)`).click()
+    cy.wait(5000)
+    cy.get('.p-6 > :nth-child(3) > .mt-1').invoke('val').then(selectedValue => {
+      let selectedOption = selectedValue.trim();
+      // Do something with the selected value
+      cy.log(`Selected value: ${selectedOption}`);
+    
+      if(selectedOption='sick_leave'){
+        cy.get(':nth-child(1) > .text-xl').then(($index)=>{
+          sick_leave=$index.text()
+          console.log(sick_leave)
+        })
+        cy.get(':nth-child(2) > .text-xl').then(($index)=>{
+          paid_leave=$index.text()
+          console.log(paid_leave)
+        })
+        cy.get(':nth-child(3) > .text-xl').then(($index)=>{
+          unpaid_leave=$index.text()
+          console.log(unpaid_leave)
+        })
+        sick=parseFloat(sick_leave)
+        paid=parseFloat(paid_leave)
+        unpaid=parseFloat(unpaid_leave)
+        cy.get('#reply').type('Your leave is granted')
+        cy.get('.bg-teal-600').click()
+        if(sick==0){
+          
+        }
+        
+
+       
+      }
+        
+      
+
+
+      })
+    
+    
+  })
+});
+
+
 })
