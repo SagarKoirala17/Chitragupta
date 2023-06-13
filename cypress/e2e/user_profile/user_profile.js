@@ -48,7 +48,15 @@ Cypress.Commands.add('BasicInformationContainer',()=>{
     //assert the birth date
     cy.get(':nth-child(8) > .pb-1').should('have.text','Birth Date*')
     cy.get('#date_of_birth').type(random_date)
-    
-
-
+    cy.get(':nth-child(9) > .pb-1').should('have.text','Postal Code*')
+    cy.get('#postal_code').should('be.visible').clear().type('44600')
+    //assert the mobile number
+    cy.get(':nth-child(11) > .pb-1').should('have.text','Mobile Number*')
+    cy.get('#mobile_phone_number_1').should('be.visible').clear().type('9862175008')
+    //assert the emergency number
+    cy.get(':nth-child(12) > .pb-1').should('have.text','Emergency Number*')
+    cy.get('#mobile_phone_number_2').should('be.visible').clear().type('9862175009')
+    //assert the landline number
+    cy.get(':nth-child(13) > .pb-1').should('have.text','Landline Number')
+    cy.get('#landline_phone_number').should('be.visible')
 })
