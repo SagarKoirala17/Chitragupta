@@ -1,3 +1,4 @@
+import { generateRandomDate1998 } from "../random_birthdate"
 Cypress.Commands.add('ClickUsername',()=>{
     cy.get('#mini-avatar').click()
 })
@@ -21,6 +22,8 @@ Cypress.Commands.add('AssertUserPictureContainer',()=>{
 
 })
 Cypress.Commands.add('BasicInformationContainer',()=>{
+    let random_date=generateRandomDate1998()
+    console.log(random_date)
     cy.get('#headlessui-disclosure-button-12').should('be.visible').click()
     //assert the first name
     cy.get(':nth-child(1) > .pb-1').should('have.text','First Name*')
@@ -44,6 +47,7 @@ Cypress.Commands.add('BasicInformationContainer',()=>{
     cy.get('#citizenship_id').should('be.visible').clear().type('7654892309755')
     //assert the birth date
     cy.get(':nth-child(8) > .pb-1').should('have.text','Birth Date*')
+    cy.get('#date_of_birth').type(random_date)
     
 
 
