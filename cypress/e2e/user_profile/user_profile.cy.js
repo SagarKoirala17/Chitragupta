@@ -9,8 +9,9 @@ describe('User Profile Components',()=>{
         it('Assert the user profile page',()=>{
           cy.wait(5000)
           cy.ClickUsername()
-          
           cy.ClickYourProfileButton()
+          cy.BasicInformationContainer()
+          
 
         })
     })
