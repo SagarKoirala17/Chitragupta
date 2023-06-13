@@ -1,4 +1,4 @@
-import { generateRandomDate1998 } from "../random_birthdate"
+import { generateRandomDate } from "../random_birthdate"
 Cypress.Commands.add('ClickUsername',()=>{
     cy.get('#mini-avatar').click()
 })
@@ -22,7 +22,7 @@ Cypress.Commands.add('AssertUserPictureContainer',()=>{
 
 })
 Cypress.Commands.add('BasicInformationContainer',()=>{
-    let random_date=generateRandomDate1998()
+    var random_date=generateRandomDate(1998,1999)
     console.log(random_date)
     cy.get('#headlessui-disclosure-button-12').should('be.visible').click()
     //assert the first name
@@ -74,4 +74,22 @@ Cypress.Commands.add('AssertBankInformation',()=>{
     //assert the branch name
     cy.get('#headlessui-disclosure-panel-15 > .grid > :nth-child(5) > .pb-1').should('have.text','Branch Name*')
     cy.get('#branch').should('be.visible').clear().type('Durbar Marg')
+})
+Cypress.Commands.add('AssertCompanyInformationContainer',()=>{
+    let random_date=generateRandomDate(2021,2022)
+    cy.get('#headlessui-disclosure-button-16').should('be.visible').click()
+    cy.get('#headlessui-disclosure-panel-17 > .grid > :nth-child(1) > .pb-1').should('have.text','Start Date*')
+    cy.get('#start_date').should('be.visible').type(random_date)
+    cy.get('#headlessui-disclosure-panel-17 > .grid > :nth-child(3) > .pb-1').should('have.text','Status*')
+    cy.get('#status').should('be.visible')
+    cy.get('#headlessui-disclosure-panel-17 > .grid > :nth-child(2) > .pb-1').should('have.text','Company Email*')
+    cy.get('#linkedin_profile_url').should('be.visible').type('https://www.linkedin.com/in/subas-poudel/')
+    
+    cy.get('#upwork_profile').should('be.visible').clear().type('https://www.upwork.com/freelancers/~01617aacf1ca07')
+    cy.get('#headlessui-disclosure-panel-17 > .grid > :nth-child(7) > .pb-1').should('have.text','Designation*')
+    cy.get('#designation').should('be.visible').select('Senior Backend Developer')
+
+})
+Cypress.Commands.add('ClickSaveButton',()=>{
+    cy.get('.py-3 > .inline-flex').contains('Save').click()
 })

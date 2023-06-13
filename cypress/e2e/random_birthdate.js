@@ -1,6 +1,6 @@
-export function generateRandomDate1998() {
-    var startDate = new Date('1998-01-01');
-    var endDate = new Date('1998-12-31');
+export function generateRandomDate(startYear, endYear) {
+    var startDate = new Date(startYear, 0, 1);
+    var endDate = new Date(endYear, 11, 31);
     
     var startTimestamp = startDate.getTime();
     var endTimestamp = endDate.getTime();
@@ -11,3 +11,5 @@ export function generateRandomDate1998() {
     return randomDate.toISOString().split('T')[0];
   }
   
+
+    

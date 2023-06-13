@@ -12,6 +12,8 @@ describe('User Profile Components',()=>{
           cy.ClickYourProfileButton()
           cy.BasicInformationContainer()
           cy.AssertBankInformation()
+          cy.AssertCompanyInformationContainer()
+          cy.ClickSaveButton()
 
         })
     })
