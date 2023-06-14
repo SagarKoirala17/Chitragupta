@@ -21,6 +21,6 @@ describe('User Profile Components',()=>{
           cy.wait(5000)
           cy.ClickUsername()
           cy.ClickYourProfileButton()
-          cy.ClickProfilePhotoIcon()
+          cy.AttachProfilePhoto()
         })
     })
