@@ -1,5 +1,6 @@
 import { credentials } from "../credentials"
 import '../user_profile/user_profile'
+import '../user_profile/profile_photo'
 describe('User Profile Components',()=>{
     
         beforeEach(() => {
@@ -16,9 +17,10 @@ describe('User Profile Components',()=>{
           cy.ClickSaveButton()
 
         })
-        it('Upload The profile picture',()=>{
+        it.only('Upload The profile picture',()=>{
           cy.wait(5000)
           cy.ClickUsername()
           cy.ClickYourProfileButton()
+          cy.ClickProfilePhotoIcon()
         })
     })
