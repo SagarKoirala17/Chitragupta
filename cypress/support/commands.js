@@ -32,3 +32,7 @@ Cypress.Commands.add('login', (email, password) => {
     cy.get(':nth-child(4) > .flex').click()
 
 })
+Cypress.Commands.add('ClickSidebarViewButton',()=>{
+    cy.get('.h-full').should('be.visible').click()
+    
+})
