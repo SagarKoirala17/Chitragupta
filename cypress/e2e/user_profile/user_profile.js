@@ -83,7 +83,7 @@ Cypress.Commands.add('AssertCompanyInformationContainer',()=>{
     cy.get('#headlessui-disclosure-panel-17 > .grid > :nth-child(3) > .pb-1').should('have.text','Status*')
     cy.get('#status').should('be.visible')
     cy.get('#headlessui-disclosure-panel-17 > .grid > :nth-child(2) > .pb-1').should('have.text','Company Email*')
-    cy.get('#linkedin_profile_url').should('be.visible').type('https://www.linkedin.com/in/subas-poudel/')
+    cy.get('#linkedin_profile_url').should('be.visible').clear().type('https://www.linkedin.com/in/subas-poudel/')
     
     cy.get('#upwork_profile').should('be.visible').clear().type('https://www.upwork.com/freelancers/~01617aacf1ca07')
     cy.get('#headlessui-disclosure-panel-17 > .grid > :nth-child(7) > .pb-1').should('have.text','Designation*')
@@ -91,5 +91,8 @@ Cypress.Commands.add('AssertCompanyInformationContainer',()=>{
 
 })
 Cypress.Commands.add('ClickSaveButton',()=>{
-    cy.get('.py-3 > .inline-flex').contains('Save').click()
+    cy.get('.py-3 > .inline-flex').contains('Save').click({force:true})
+    cy.get('.ml-3 > .text-sm').should('have.text','Successfully updated user profile.')
+
 })
+

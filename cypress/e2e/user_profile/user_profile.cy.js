@@ -6,7 +6,7 @@ describe('User Profile Components',()=>{
             cy.login(credentials.email, credentials.password)
           })
         
-        it('Assert the user profile page',()=>{
+        it('Update the user profile',()=>{
           cy.wait(5000)
           cy.ClickUsername()
           cy.ClickYourProfileButton()
@@ -15,5 +15,10 @@ describe('User Profile Components',()=>{
           cy.AssertCompanyInformationContainer()
           cy.ClickSaveButton()
 
+        })
+        it('Upload The profile picture',()=>{
+          cy.wait(5000)
+          cy.ClickUsername()
+          cy.ClickYourProfileButton()
         })
     })
