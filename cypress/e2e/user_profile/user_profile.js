@@ -21,45 +21,32 @@ Cypress.Commands.add('AssertUserPictureContainer',()=>{
 
 
 })
-Cypress.Commands.add('BasicInformationContainer',()=>{
-    var random_date=generateRandomDate(1998,1999)
-    console.log(random_date)
-    cy.get('#headlessui-disclosure-button-12').should('be.visible').click()
-    //assert the first name
-    cy.get(':nth-child(1) > .pb-1').should('have.text','First Name*')
-    cy.get('#first_name').should('be.visible').clear().type('Subas')
-    //assert the middle name
-    cy.get(':nth-child(2) > .pb-1').should('have.text','Middle Name')
-    cy.get('#middle_name').should('be.visible')
-    cy.get(':nth-child(3) > .pb-1').should('have.text','Last Name*')
-    cy.get('#last_name').should('be.visible').clear().type('Poudel')
-    //select the gender
-    cy.get(':nth-child(4) > .pb-1').should('have.text','Gender*')
-    cy.get('#gender').should('be.visible').select('Male')
-    //select the married toggle button
-    cy.get(':nth-child(5) > .block').should('have.text','Married')
-    cy.get('#headlessui-switch-18').should('be.visible').click()
-    //asssert the pan number field
-    cy.get(':nth-child(6) > .pb-1').should('have.text','PAN Number')
-    cy.get('#pan_number').should('be.visible').clear().type('987654321')
-    //assert the citizenship number
-    cy.get(':nth-child(7) > .pb-1').should('have.text','Citizenship Number*')
-    cy.get('#citizenship_id').should('be.visible').clear().type('7654892309755')
-    //assert the birth date
-    cy.get(':nth-child(8) > .pb-1').should('have.text','Birth Date*')
-    cy.get('#date_of_birth').type(random_date)
-    cy.get(':nth-child(9) > .pb-1').should('have.text','Postal Code*')
-    cy.get('#postal_code').should('be.visible').clear().type('44600')
-    //assert the mobile number
-    cy.get(':nth-child(11) > .pb-1').should('have.text','Mobile Number*')
-    cy.get('#mobile_phone_number_1').should('be.visible').clear().type('9862175008')
-    //assert the emergency number
-    cy.get(':nth-child(12) > .pb-1').should('have.text','Emergency Number*')
-    cy.get('#mobile_phone_number_2').should('be.visible').clear().type('9862175009')
-    //assert the landline number
-    cy.get(':nth-child(13) > .pb-1').should('have.text','Landline Number')
-    cy.get('#landline_phone_number').should('be.visible')
-})
+Cypress.Commands.add('BasicInformationContainer', () => {
+    const random_date = generateRandomDate(1998, 1999);
+    console.log(random_date);
+  
+    cy.get('#headlessui-disclosure-button-12').should('be.visible').click();
+  
+    const fieldNames = ['First Name*', 'Middle Name', 'Last Name*', 'Gender*', 'Married', 'PAN Number', 'Citizenship Number*', 'Birth Date*', 'Postal Code*', 'Mobile Number*', 'Emergency Number*', 'Landline Number'];
+    
+    fieldNames.forEach((fieldName, index) => {
+      cy.get(`:nth-child(${index + 1}) > .pb-1`).should('have.text', fieldName);
+    });
+  
+    cy.get('#first_name').should('be.visible').clear().type('Subas');
+    cy.get('#middle_name').should('be.visible');
+    cy.get('#last_name').should('be.visible').clear().type('Poudel');
+    cy.get('#gender').should('be.visible').select('Male');
+    cy.get('#headlessui-switch-18').should('be.visible').click();
+    cy.get('#pan_number').should('be.visible').clear().type('987654321');
+    cy.get('#citizenship_id').should('be.visible').clear().type('7654892309755');
+    cy.get('#date_of_birth').type(random_date);
+    cy.get('#postal_code').should('be.visible').clear().type('44600');
+    cy.get('#mobile_phone_number_1').should('be.visible').clear().type('9862175008');
+    cy.get('#mobile_phone_number_2').should('be.visible').clear().type('9862175009');
+    cy.get('#landline_phone_number').should('be.visible');
+  });
+  
 Cypress.Commands.add('AssertBankInformation',()=>{
     cy.get('#headlessui-disclosure-button-14').should('be.visible').click()
     //assert the account name
