@@ -1,3 +1,4 @@
+import { generateUniqueEmail } from "../unique_email"
 Cypress.Commands.add('ClickUserButton',()=>{
     cy.get("#headlessui-dialog-panel-3 > nav > div > ol:nth-child(4) > li > div > div > button > span.ml-4.font-medium").should('be.visible').click()
 })
@@ -22,5 +23,10 @@ Cypress.Commands.add('AssertUserComponents',()=>{
     cy.AssertUserTable()
 })
 Cypress.Commands.add('InviteUser',()=>{
+    let email=generateUniqueEmail()
     cy.get('.hidden > .inline-flex').should('be.visible').click()
+    cy.get('.pb-1').should('have.text','Email*')
+    cy.get('#email').should('be.visible').type(email)
+    cy.get('.font-semibold').should('be.visible').click()
+    cy.get('.p-4').should('be.visible').should('have.text','Successfully invited user.')
 })
