@@ -34,6 +34,6 @@ Cypress.Commands.add('BulkUploadUser',()=>{
     let picture='6.png'
     //Click the Bulk Upload Button
     cy.get('.space-x-4 > [type="button"]').click()
-    
+    cy.get('.relative > #file-upload').attachFile(6.png)
 
 })

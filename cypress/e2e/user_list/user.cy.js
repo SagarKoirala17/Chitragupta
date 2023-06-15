@@ -11,14 +11,17 @@ describe('User List Components',()=>{
             cy.ClickUserButton()
             cy.AssertUserComponents()
       })
-        it('Invite the User',()=>{
+      it('Invite the User',()=>{
           cy.ClickSidebarViewButton()
           cy.ClickUserButton()
           cy.InviteUser()
+
       })
         it.only('Negative Testing for Bulk Upload',()=>{
           cy.ClickSidebarViewButton()
           cy.ClickUserButton()
+          cy.BulkUploadUser()
           
+
         })
     })
