@@ -1,4 +1,5 @@
 import { generateUniqueEmail } from "../unique_email"
+import 'cypress-file-upload'
 Cypress.Commands.add('ClickUserButton',()=>{
     cy.get("#headlessui-dialog-panel-3 > nav > div > ol:nth-child(4) > li > div > div > button > span.ml-4.font-medium").should('be.visible').click()
 })
@@ -34,6 +35,8 @@ Cypress.Commands.add('BulkUploadUser',()=>{
     let picture='6.png'
     //Click the Bulk Upload Button
     cy.get('.space-x-4 > [type="button"]').click()
-    cy.get('.relative > #file-upload').attachFile(6)
+    cy.get('.relative > #file-upload').attachFile(picture)
+    cy.get('.my-4 > .flex > .bg-primary').click()
+    cy.get('.ml-3 > .text-sm').should('have.text','Please upload file with csv extension.')
 
 })
