@@ -9,6 +9,6 @@ describe('User List Components',()=>{
         it('Assert the User List Page',()=>{
             cy.ClickSidebarViewButton()
             cy.ClickUserButton()
-            cy.AssertUserTable()
-        })
+            cy.AssertUserComponents()
+      })
     })

@@ -15,3 +15,9 @@ Cypress.Commands.add('AssertUserTable',()=>{
     cy.get('#status').should('be.visible')
 
 })
+Cypress.Commands.add('AssertUserComponents',()=>{
+    cy.get('.text-gray-800').should('have.text','User List')
+    cy.get('.hidden > .inline-flex').should('have.text','Invite User')
+    cy.get('.space-x-4 > [type="button"]').should('have.text','Bulk Upload')
+    cy.AssertUserTable()
+})
