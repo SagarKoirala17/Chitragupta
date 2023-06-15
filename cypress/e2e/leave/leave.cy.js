@@ -106,7 +106,6 @@ it('Negative Assertion for Bulk Upload',()=>{
   cy.get('.p-4 > .flex > .bg-primary').click()
   cy.get('.flex-col > .w-full > .p-4').should('be.visible')
 })
-
 it.only('Approve the Pending Request', () => {
   let paid_leave, sick_leave, unpaid_leave, sick, paid, unpaid, duration;
   let arrays = [];
