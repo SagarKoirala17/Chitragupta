@@ -47,21 +47,21 @@ Cypress.Commands.add('BasicInformationContainer', () => {
     cy.get('#landline_phone_number').should('be.visible');
   });
   
-Cypress.Commands.add('AssertBankInformation',()=>{
-    cy.get('#headlessui-disclosure-button-14').should('be.visible').click()
-    //assert the account name
-    cy.get('#headlessui-disclosure-panel-15 > .grid > :nth-child(2) > .pb-1').should('have.text','Account Name*')
-    cy.get('#account_name').should('be.visible').clear().type('Subas Poudel')
-    //assert the account number
-    cy.get('#headlessui-disclosure-panel-15 > .grid > :nth-child(3) > .pb-1').should('have.text','Account Number*')
-    cy.get('#account_number').should('be.visible').clear().type('0065782345F')
-    //assert the bank name
-    cy.get('#headlessui-disclosure-panel-15 > .grid > :nth-child(4) > .pb-1').should('have.text','Bank Name*')
-    cy.get('#bank_name').should('be.visible').clear().type('Nabil Bank')
-    //assert the branch name
-    cy.get('#headlessui-disclosure-panel-15 > .grid > :nth-child(5) > .pb-1').should('have.text','Branch Name*')
-    cy.get('#branch').should('be.visible').clear().type('Durbar Marg')
-})
+  Cypress.Commands.add('AssertBankInformation', () => {
+    cy.get('#headlessui-disclosure-button-14').should('be.visible').click();
+  
+    const fieldNames = ['Account Name*', 'Account Number*', 'Bank Name*', 'Branch Name*'];
+    
+    fieldNames.forEach((fieldName, index) => {
+      cy.get(`#headlessui-disclosure-panel-15 > .grid > :nth-child(${index + 2}) > .pb-1`).should('have.text', fieldName);
+    });
+  
+    cy.get('#account_name').should('be.visible').clear().type('Subas Poudel');
+    cy.get('#account_number').should('be.visible').clear().type('0065782345F');
+    cy.get('#bank_name').should('be.visible').clear().type('Nabil Bank');
+    cy.get('#branch').should('be.visible').clear().type('Durbar Marg');
+  });
+  
 Cypress.Commands.add('AssertCompanyInformationContainer',()=>{
     let random_date=generateRandomDate(2021,2022)
     cy.get('#headlessui-disclosure-button-16').should('be.visible').click()
