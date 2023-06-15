@@ -106,6 +106,7 @@ it('Negative Assertion for Bulk Upload',()=>{
   cy.get('.p-4 > .flex > .bg-primary').click()
   cy.get('.flex-col > .w-full > .p-4').should('be.visible')
 })
+
 it.only('Approve the Pending Request', () => {
   let paid_leave, sick_leave, unpaid_leave, sick, paid, unpaid, duration;
   let arrays = [];
@@ -171,6 +172,14 @@ it.only('Approve the Pending Request', () => {
                 cy.get(':nth-child(2) > .text-xl').then(($index) => {
                   const paids = parseFloat($index.text().trim());
                   expect(paids).to.deep.equal(paid - duration);
+                });
+
+              }
+              cy.wait(5000)
+              if(sick<1 && paid<1 ){
+                cy.get(':nth-child(3) > .text-xl').then(($index) => {
+                  const unpaids = parseFloat($index.text().trim());
+                  expect(unpaids).to.deep.equal(unpaid - duration);
                 });
 
               }
