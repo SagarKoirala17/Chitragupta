@@ -107,65 +107,81 @@ it('Negative Assertion for Bulk Upload',()=>{
   cy.get('.flex-col > .w-full > .p-4').should('be.visible')
 })
 it.only('Approve the Pending Request', () => {
-  let paid_leave,sick_leave, unpaid_leave, sick, paid, unpaid 
-  let arrays=[]
+  let paid_leave, sick_leave, unpaid_leave, sick, paid, unpaid, duration;
+  let arrays = [];
+
   cy.get('.h-full').should('be.visible').click();
   cy.get("#headlessui-dialog-panel-3 > nav > div > ol:nth-child(2) > li > div > div > button > span.ml-4.font-medium").click();
 
   // Wait for the dropdown options to be loaded
 
   // Select the option with value 'pending' from the dropdown
-  cy.get('#status').select('Pending')
-  cy.wait(5000)
-  cy.get(':nth-child(n) > :nth-child(8) > .text-yellow-500').each(($index)=>{
-    let array=$index.text().trim()
-    arrays.push(array)
+  cy.get('#status').select('Pending');
 
-  }).then(()=>{
-    console.log(arrays)
-    let random_cancel = Math.floor(Math.random() * (arrays.length - 1)) + 1;
-    cy.get(`.min-w-full > .bg-white > :nth-child(${random_cancel}) > :nth-child(1)`).click()
+  cy.get(':nth-child(n) > :nth-child(8) > .text-yellow-500').each(($index) => {
+    const array = $index.text().trim();
+    arrays.push(array);
+  }).then(() => {
+    console.log(arrays);
+    const random_cancel = Math.floor(Math.random() * (arrays.length - 1)) + 1;
+
+    cy.get(`.min-w-full > .bg-white > :nth-child(${random_cancel}) > :nth-child(5)`).each(($index) => {
+      duration = parseFloat($index.text().trim());
+      $index.click();
+    });
     cy.wait(5000)
-    cy.get('.p-6 > :nth-child(3) > .mt-1').invoke('val').then(selectedValue => {
-      let selectedOption = selectedValue.trim();
-      // Do something with the selected value
+    cy.get('.p-6 > :nth-child(3) > .mt-1').invoke('val').then((selectedValue) => {
+      const selectedOption = selectedValue.trim();
       cy.log(`Selected value: ${selectedOption}`);
-    
-      if(selectedOption='sick_leave'){
-        cy.get(':nth-child(1) > .text-xl').then(($index)=>{
-          sick_leave=$index.text()
-          console.log(sick_leave)
-        })
-        cy.get(':nth-child(2) > .text-xl').then(($index)=>{
-          paid_leave=$index.text()
-          console.log(paid_leave)
-        })
-        cy.get(':nth-child(3) > .text-xl').then(($index)=>{
-          unpaid_leave=$index.text()
-          console.log(unpaid_leave)
-        })
-        sick=parseFloat(sick_leave)
-        paid=parseFloat(paid_leave)
-        unpaid=parseFloat(unpaid_leave)
-        cy.get('#reply').type('Your leave is granted')
-        cy.get('.bg-teal-600').click()
-        console.log(sick)
-        if(sick==0){
-          
-        }
-        
 
-       
+      if (selectedOption === 'sick_leave') {
+        cy.get(':nth-child(1) > .text-xl').then(($index) => {
+          sick_leave = $index.text().trim();
+          sick = parseFloat(sick_leave);
+          console.log(sick_leave);
+          console.log(sick);
+
+          cy.get(':nth-child(2) > .text-xl').then(($index) => {
+            paid_leave = $index.text().trim();
+            paid = parseFloat(paid_leave);
+            console.log(paid_leave);
+            console.log(paid);
+
+            cy.get(':nth-child(3) > .text-xl').then(($index) => {
+              unpaid_leave = $index.text().trim();
+              unpaid = parseFloat(unpaid_leave);
+              console.log(unpaid_leave);
+              console.log(unpaid);
+
+              cy.get('#reply').type('Your leave is granted');
+              cy.get('.bg-teal-600').click({ force: true });
+              console.log(sick);
+
+              cy.get(`.min-w-full > .bg-white > :nth-child(${random_cancel}) > :nth-child(5)`).click();
+              cy.wait(5000)
+              if (sick !== 0) {
+                cy.get(':nth-child(1) > .text-xl').then(($index) => {
+                  const sicks = parseFloat($index.text().trim());
+                  expect(sicks).to.deep.equal(sick - duration);
+                });
+
+              }
+              cy.wait(5000)
+              if(sick<1 && paid!==0){
+                cy.get(':nth-child(2) > .text-xl').then(($index) => {
+                  const paids = parseFloat($index.text().trim());
+                  expect(paids).to.deep.equal(paid - duration);
+                });
+
+              }
+            });
+          });
+        });
       }
-        
-      
-
-
-      })
-    
-    
-  })
+    });
+  });
 });
+
 
 
 })
