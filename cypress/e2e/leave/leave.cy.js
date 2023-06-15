@@ -107,7 +107,7 @@ it('Negative Assertion for Bulk Upload',()=>{
   cy.get('.flex-col > .w-full > .p-4').should('be.visible')
 })
 it.only('Approve the Pending Request', () => {
-  let paid_leave,sick_leave, unpaid_leave, sick, paid, unpaid, leave_type
+  let paid_leave,sick_leave, unpaid_leave, sick, paid, unpaid 
   let arrays=[]
   cy.get('.h-full').should('be.visible').click();
   cy.get("#headlessui-dialog-panel-3 > nav > div > ol:nth-child(2) > li > div > div > button > span.ml-4.font-medium").click();
@@ -149,6 +149,7 @@ it.only('Approve the Pending Request', () => {
         unpaid=parseFloat(unpaid_leave)
         cy.get('#reply').type('Your leave is granted')
         cy.get('.bg-teal-600').click()
+        console.log(sick)
         if(sick==0){
           
         }
