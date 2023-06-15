@@ -30,3 +30,10 @@ Cypress.Commands.add('InviteUser',()=>{
     cy.get('.font-semibold').should('be.visible').click()
     cy.get('.p-4').should('be.visible').should('have.text','Successfully invited user.')
 })
+Cypress.Commands.add('BulkUploadUser',()=>{
+    let picture='6.png'
+    //Click the Bulk Upload Button
+    cy.get('.space-x-4 > [type="button"]').click()
+    
+
+})
