@@ -7,7 +7,7 @@ describe('User Profile Components',()=>{
             cy.login(credentials.email, credentials.password)
           })
         
-        it('Update the user profile',()=>{
+        it.only('Update the user profile',()=>{
           cy.wait(5000)
           cy.ClickUsername()
           cy.ClickYourProfileButton()
@@ -17,7 +17,7 @@ describe('User Profile Components',()=>{
           cy.ClickSaveButton()
 
         })
-        it.only('Upload The profile picture',()=>{
+        it('Upload The profile picture',()=>{
           cy.wait(5000)
           cy.ClickUsername()
           cy.ClickYourProfileButton()

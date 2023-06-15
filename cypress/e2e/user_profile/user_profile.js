@@ -83,6 +83,7 @@ Cypress.Commands.add('AssertCompanyInformationContainer',()=>{
     cy.get('#headlessui-disclosure-panel-17 > .grid > :nth-child(3) > .pb-1').should('have.text','Status*')
     cy.get('#status').should('be.visible')
     cy.get('#headlessui-disclosure-panel-17 > .grid > :nth-child(2) > .pb-1').should('have.text','Company Email*')
+    cy.get('#company_email').clear().type('dit.subas@gmail.com')
     cy.get('#linkedin_profile_url').should('be.visible').clear().type('https://www.linkedin.com/in/subas-poudel/')
     
     cy.get('#upwork_profile').should('be.visible').clear().type('https://www.upwork.com/freelancers/~01617aacf1ca07')
