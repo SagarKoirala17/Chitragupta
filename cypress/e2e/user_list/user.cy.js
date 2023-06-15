@@ -11,4 +11,9 @@ describe('User List Components',()=>{
             cy.ClickUserButton()
             cy.AssertUserComponents()
       })
+      it.only('Invite the User',()=>{
+        cy.ClickSidebarViewButton()
+        cy.ClickUserButton()
+        cy.InviteUser()
+      })
     })

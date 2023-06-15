@@ -21,3 +21,6 @@ Cypress.Commands.add('AssertUserComponents',()=>{
     cy.get('.space-x-4 > [type="button"]').should('have.text','Bulk Upload')
     cy.AssertUserTable()
 })
+Cypress.Commands.add('InviteUser',()=>{
+    cy.get('.hidden > .inline-flex').should('be.visible').click()
+})
