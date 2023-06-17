@@ -1,6 +1,7 @@
 import { credentials } from "../credentials"
 import '../leave/leave_table'
 import 'cypress-file-upload';
+import '../leave/leave'
 
 
 describe('Leave Table Components',()=>{
@@ -162,25 +163,51 @@ it.only('Approve the Pending Request', () => {
               if (sick !== 0) {
                 cy.get(':nth-child(1) > .text-xl').then(($index) => {
                   const sicks = parseFloat($index.text().trim());
-                  expect(sicks).to.deep.equal(sick - duration);
-                });
+                  const s = sick - duration;
+                  console.log(s);
+                  console.log(paid + s);
 
-              }
-              cy.wait(5000)
-              if(sick<1 && paid!==0){
-                cy.get(':nth-child(2) > .text-xl').then(($index) => {
-                  const paids = parseFloat($index.text().trim());
-                  expect(paids).to.deep.equal(paid - duration);
-                });
+                  if (s === 0) {
+                    expect(sicks).to.deep.equal(0);
+                    expect(paid).to.deep.equal(paid + s);
 
-              }
-              cy.wait(5000)
-              if(sick<1 && paid<1 ){
-                cy.get(':nth-child(3) > .text-xl').then(($index) => {
-                  const unpaids = parseFloat($index.text().trim());
-                  expect(unpaids).to.deep.equal(unpaid - duration);
-                });
+                    if (paid !== 0) {
+                      cy.get(':nth-child(2) > .text-xl').then(($index) => {
+                        const paids = parseFloat($index.text().trim());
+                        const p = paid - s;
+                        console.log(p);
+                        console.log(unpaid + p);
 
+                        if (p === 0) {
+                          expect(paids).to.deep.equal(0);
+                          expect(unpaid).to.deep.equal(unpaid + p);
+                        } else {
+                          expect(paids).to.deep.equal(p);
+                          expect(unpaid).to.deep.equal(unpaid);
+                        }
+                      });
+                    }
+                  } else if (s < 0) {
+                    expect(sicks).to.deep.equal(0);
+                    cy.get(':nth-child(2) > .text-xl').then(($index) => {
+                      const paids = parseFloat($index.text().trim());
+                      expect(paids).to.deep.equal(paid + s);
+                    });
+
+                    if (paid === 0) {
+                      expect(paid).to.deep.equal(0);
+                    } else if (paid > 0) {
+                      expect(sicks).to.deep.equal(paid + s);
+                    }
+                  } else {
+                    expect(sicks).to.deep.equal(s);
+                    expect(paid).to.deep.equal(paid);
+                    cy.get(':nth-child(3) > .text-xl').then(($index) => {
+                      const unpaids = parseFloat($index.text().trim());
+                      expect(unpaids).to.deep.equal(unpaid + s);
+                    });
+                  }
+                });
               }
             });
           });
@@ -189,6 +216,7 @@ it.only('Approve the Pending Request', () => {
     });
   });
 });
+
 
 
 
